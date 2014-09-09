@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<!--
+************************************************************************
+YASim aerodynamic model for an Airspeed Horsa
+
+************************************************************************
+-->
+
+<!-- Weight of everything but fuel   -->
+<airplane mass="8370">
+
+<!-- Approach configuration -->
+<approach speed="38" aoa="6"
+ glide-angle="7">
+  <control-setting axis="/controls/flight/flaps" value="1.0"/>
+</approach>
+
+<!-- Cruise configuration -->
+<cruise speed="60" alt="22000"
+ glide-angle="9">
+</cruise>
+<!-- pilot's eyepoint -->
+<cockpit x="-8.1" y="0" z="0.2"/>
+<fuselage ax="8.4" ay="0.0" az="-1.0" bx="7.0" by="0.0" bz="-0.65"
+          width="2.2" taper="0.3" midpoint="1.0"/>
+<fuselage ax="7.0" ay="0.0" az="-0.65" bx="-4.0" by="0.0" bz="-0.65"
+          width="2.2" taper="1.0" midpoint="0.5"/>
+<fuselage ax="-4.0" ay="0.0" az="-0.65" bx="-10.6" by="0.0" bz="-0.35"
+          width="2.2" taper="0.5" midpoint="0.0"/>
+
+
+<!-- wing-->
+<wing x="-0.37" y="3.58" z="-0.05" taper="0.5" incidence="3.3" twist="1"
+      length="9.2" chord="4.9" sweep="7.0" dihedral="2.4" camber="0.0">
+  <stall aoa="9" width="6" peak="1.5"/>
+  <flap0 start="0.0" end="0.638" lift="1.4" drag="2.2"/>
+  <flap1 start="0.638" end="1.0" lift="1.3" drag="1.1"/>
+  <control-input axis="/controls/flight/flaps" control="FLAP0"/>
+  <control-output control="FLAP0" prop="/surface-positions/flap-pos-norm"/>
+  <control-speed control="FLAP0" transition-time="5"/>
+  <control-input axis="/controls/flight/aileron" control="FLAP1" split="true"/>
+  <control-input axis="/controls/flight/aileron-trim" control="FLAP1" split="true"/>
+</wing>
+
+<mstab x="-0.37" y="1.1" z="-0.05" taper="1.0" incidence="3.3"
+      length="2.48" chord="4.9" sweep="0.0" dihedral="0.0" camber="0.0">
+  <stall aoa="9" width="6" peak="1.5"/>
+</mstab>
+<!--wingtip-->
+<mstab x="-1.5" y="12.71" z="0.27" taper="0.35" incidence="3.3"
+      length="0.7" chord="2.5" sweep="-30" dihedral="1.2" camber="0.0">
+  <stall aoa="7" width="10" peak="1.5"/>
+</mstab>
+
+<hstab x="-10.2" y="0.564" z="0.9" taper="1.0" dihedral="0.0" camber="-0.2"
+       length="4.2" chord="2.3" sweep="0">
+  <stall aoa="15" width="15" peak="1.5"/>
+  <flap0 start="0.0" end="1.0" lift="1.62" drag="1.1"/>
+  <control-input axis="/controls/flight/elevator" control="FLAP0"/>
+  <control-input axis="/controls/flight/elevator-trim" control="FLAP0"/>
+  <control-output control="FLAP0" prop="/surface-positions/elevator-pos-norm"/>
+</hstab>
+
+<!-- rudder has to be able to counteract aileron drag -->
+<vstab x="-10.2" y="0" z="-0.1" taper="0.4" 
+       length="3.7" chord="3.4" sweep="5"  incidence="0">
+  <stall aoa="15" width="14" peak="1.5"/>
+  <flap0 start="0" end="1" lift="1.3" drag="1.4"/>
+  <control-input axis="/controls/flight/rudder" square="true" control="FLAP0" invert="true"/>
+  <control-input axis="/controls/flight/rudder-trim" control="FLAP0" invert="true"/>
+  <control-output control="FLAP0" prop="/surface-positions/rudder-pos-norm"
+    min="1" max="-1"/>
+</vstab>
+
+<!-- nose gear -->
+	<gear x="6.523" y="0.0" z="-2.834" compression="0.2" spring="0.8" damp="1.3" dfric="0.6" sfric ="0.80"
+	  castering="1" retract-time = "0" > 
+      <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+      <control-input axis="/controls/gear/nosewheel-lock" 
+				src0="0" src1="1" dst0="1" dst1="1" control="CASTERING"/>
+      <control-speed control="EXTEND" transition-time="4"/>
+      <control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
+    </gear>
+
+ <!-- left main -->
+<gear x="-0.176" y="2.665" z="-2.822" compression="0.2" spring="0.8" damp="1.0" dfric="0.6" sfric ="0.80">
+  <control-input axis="/controls/gear/brake-left" control="BRAKE"/>
+  <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+  <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+  <control-speed control="EXTEND" transition-time="6"/>
+  <control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
+</gear>
+
+ <!-- right main -->
+<gear x="-0.176" y="-2.665" z="-2.822" compression="0.2" spring="0.8" damp="1.0" dfric="0.6" sfric ="0.80">
+  <control-input axis="/controls/gear/brake-right" control="BRAKE"/>
+  <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+  <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+  <control-speed control="EXTEND" transition-time="7"/>
+  <control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
+</gear>
+
+
+<ballast x="7.5" y="0" z="0.0" mass="2000"/>
+
+
+
+</airplane>
