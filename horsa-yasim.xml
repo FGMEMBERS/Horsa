@@ -2,40 +2,71 @@
 
 <!--
 ************************************************************************
-YASim aerodynamic model for an Airspeed Horsa
+YASim aerodynamic model for a Junkers Ju-88-a4, modded by Lester Boffo
+ Modded from Detlef's JU88
 
 ************************************************************************
 -->
 
-<!-- Weight of everything but fuel   -->
-<airplane mass="8370">
+<!-- Weight -->
+<airplane mass="6901">
+
 
 <!-- Approach configuration -->
-<approach speed="38" aoa="6"
- glide-angle="7">
-  <control-setting axis="/controls/flight/flaps" value="1.0"/>
+<approach speed="39" aoa="4" glide-angle="5.1">
+  <control-setting axis="/controls/flight/flaps" value="0.75"/>
+  <control-setting axis="/controls/gear/gear-down" value="1"/>
 </approach>
 
 <!-- Cruise configuration -->
-<cruise speed="60" alt="22000"
- glide-angle="9">
+<cruise speed="100" alt="5000" glide-angle="3.1">
+  <control-setting axis="/controls/flight/flaps" value="0.0"/>
+  <control-setting axis="/controls/gear/gear-down" value="0"/>
 </cruise>
+
 <!-- pilot's eyepoint -->
-<cockpit x="-8.1" y="0" z="0.2"/>
-<fuselage ax="8.4" ay="0.0" az="-1.0" bx="7.0" by="0.0" bz="-0.65"
-          width="2.2" taper="0.3" midpoint="1.0"/>
-<fuselage ax="7.0" ay="0.0" az="-0.65" bx="-4.0" by="0.0" bz="-0.65"
-          width="2.2" taper="1.0" midpoint="0.5"/>
-<fuselage ax="-4.0" ay="0.0" az="-0.65" bx="-10.6" by="0.0" bz="-0.35"
-          width="2.2" taper="0.5" midpoint="0.0"/>
+<cockpit x="-4.495" y="0" z="0.689"/>
+
+<!-- fuselage -->
+
+ <fuselage ax="8.54" ay="0.0" az="-0.53" bx="6.53" by="0.0" bz="-0.26" width="1.725" taper="0.45" midpoint="1.0"/>
+<fuselage ax="6.53" ay="0.0" az="-0.26" bx="-4.06" by="0.0" bz="-0.26" width="1.825" taper="1.0" midpoint="0.5" cy="1.28" cz="1.24"/>
+<fuselage ax="-4.06" ay="0.0" az="0.16" bx="-10.643" by="0.0" bz="0.813" width="1.725" taper="0.15" midpoint="0.0" cy="1.028" cz="1.024"/> 
+
+<!-- <fuselage ax="8.54" ay="0.0" az="-0.53" bx="-10.643" by="0.0" bz="0.413" width="1.725" taper="0.35" midpoint="0.21" cy="1.028" cz="1.024"/> -->
 
 
-<!-- wing-->
-<wing x="-0.37" y="3.58" z="-0.05" taper="0.5" incidence="3.3" twist="1"
-      length="9.2" chord="4.9" sweep="7.0" dihedral="2.4" camber="0.0">
-  <stall aoa="9" width="6" peak="1.5"/>
-  <flap0 start="0.0" end="0.638" lift="1.4" drag="2.2"/>
-  <flap1 start="0.638" end="1.0" lift="1.3" drag="1.1"/>
+<!--inner wing-->
+
+<mstab x="0.225" y="0.75" z="0.22"
+                length="2.76" 
+                chord="4.669"
+                taper="1"
+                incidence="1.5"
+                twist="0"
+                sweep="0" 
+                dihedral="0"
+                camber="0.063">
+  <stall aoa="17.5" width="7" peak="3.5"/>
+  <flap0 start="0.0" end="1.0" lift="1.34" drag="1.68"/>
+  <control-input axis="/controls/flight/flaps" control="FLAP0"/>
+  <control-output control="FLAP0" prop="/surface-positions/flap-pos-norm"/>
+  <control-speed control="FLAP0" transition-time="5"/>
+</mstab>
+
+<!--outer wing-->
+<wing x="0.22" y="3.55" z="0.22"
+                length="9.916" 
+                chord="4.669"
+                taper="0.47"
+                incidence="0.35"
+                twist="-0.9"
+                sweep="0.3" 
+                dihedral="0"
+                camber="0.042">
+  <stall aoa="17" width="5" peak="2.5"/>
+  <flap0 start="0.0" end="0.43" lift="1.32" drag="1.64"/>
+  <flap1 start="0.43" end="1.0" lift="1.6" drag="1.2"/>
   <control-input axis="/controls/flight/flaps" control="FLAP0"/>
   <control-output control="FLAP0" prop="/surface-positions/flap-pos-norm"/>
   <control-speed control="FLAP0" transition-time="5"/>
@@ -43,39 +74,38 @@ YASim aerodynamic model for an Airspeed Horsa
   <control-input axis="/controls/flight/aileron-trim" control="FLAP1" split="true"/>
 </wing>
 
-<mstab x="-0.37" y="1.1" z="-0.05" taper="1.0" incidence="3.3"
-      length="2.48" chord="4.9" sweep="0.0" dihedral="0.0" camber="0.0">
-  <stall aoa="9" width="6" peak="1.5"/>
-</mstab>
-<!--wingtip-->
-<mstab x="-1.5" y="12.71" z="0.27" taper="0.35" incidence="3.3"
-      length="0.7" chord="2.5" sweep="-30" dihedral="1.2" camber="0.0">
-  <stall aoa="7" width="10" peak="1.5"/>
-</mstab>
-
-<hstab x="-10.2" y="0.564" z="0.9" taper="1.0" dihedral="0.0" camber="-0.2"
-       length="4.2" chord="2.3" sweep="0">
-  <stall aoa="15" width="15" peak="1.5"/>
-  <flap0 start="0.0" end="1.0" lift="1.62" drag="1.1"/>
+<hstab x="-10.15" y="0.34" z="0.78" 
+              length="5.109"
+              chord="2.189"
+              taper="1.0"
+              dihedral="0"
+              sweep="0"
+              camber="0.03"
+              incidence="-1.5">
+  <stall aoa="19" width="7" peak="3.5"/>
+  <flap0 start="0.0" end="1.0" lift="1.9" drag="1.4"/>
   <control-input axis="/controls/flight/elevator" control="FLAP0"/>
   <control-input axis="/controls/flight/elevator-trim" control="FLAP0"/>
   <control-output control="FLAP0" prop="/surface-positions/elevator-pos-norm"/>
 </hstab>
 
-<!-- rudder has to be able to counteract aileron drag -->
-<vstab x="-10.2" y="0" z="-0.1" taper="0.4" 
-       length="3.7" chord="3.4" sweep="5"  incidence="0">
-  <stall aoa="15" width="14" peak="1.5"/>
-  <flap0 start="0" end="1" lift="1.3" drag="1.4"/>
+<vstab x="-10.1935" y="0" z="0.524" 
+                         length="2.187"
+                         chord="3.75"
+                         taper="0.62"
+                         sweep="10">
+  <stall aoa="22" width="8" peak="3.5"/>
+  <flap0 start="0" end="1.2" lift="1.37" drag="1.22"/>
   <control-input axis="/controls/flight/rudder" square="true" control="FLAP0" invert="true"/>
   <control-input axis="/controls/flight/rudder-trim" control="FLAP0" invert="true"/>
   <control-output control="FLAP0" prop="/surface-positions/rudder-pos-norm"
     min="1" max="-1"/>
 </vstab>
 
+
 <!-- nose gear -->
-	<gear x="6.523" y="0.0" z="-2.834" compression="0.2" spring="0.8" damp="1.3" dfric="0.6" sfric ="0.80"
-	  castering="1" retract-time = "0" > 
+	<gear x="6.523" y="0.0" z="-2.834" compression="0.2" spring="0.8" damp="1.3" dfric="0.6" sfric ="0.1"
+	  castering="0" retract-time = "0" > 
       <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
       <control-input axis="/controls/gear/nosewheel-lock" 
 				src0="0" src1="1" dst0="1" dst1="1" control="CASTERING"/>
@@ -84,7 +114,7 @@ YASim aerodynamic model for an Airspeed Horsa
     </gear>
 
  <!-- left main -->
-<gear x="-0.176" y="2.665" z="-2.822" compression="0.2" spring="0.8" damp="1.0" dfric="0.6" sfric ="0.80">
+<gear x="-0.176" y="2.665" z="-2.822" compression="0.2" spring="0.8" damp="1.0" dfric="0.6" sfric ="0.10">
   <control-input axis="/controls/gear/brake-left" control="BRAKE"/>
   <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
   <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
@@ -93,7 +123,7 @@ YASim aerodynamic model for an Airspeed Horsa
 </gear>
 
  <!-- right main -->
-<gear x="-0.176" y="-2.665" z="-2.822" compression="0.2" spring="0.8" damp="1.0" dfric="0.6" sfric ="0.80">
+<gear x="-0.176" y="-2.665" z="-2.822" compression="0.2" spring="0.8" damp="1.0" dfric="0.6" sfric ="0.10">
   <control-input axis="/controls/gear/brake-right" control="BRAKE"/>
   <control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
   <control-input axis="/controls/gear/gear-down" control="EXTEND"/>
@@ -101,9 +131,26 @@ YASim aerodynamic model for an Airspeed Horsa
   <control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
 </gear>
 
+  <!-- external loads -->
+  <weight x="6.303" y="0.0" z="0.104"  mass-prop="sim/weight[1]/weight-lb"/>
+  <weight x="-0.5" y="0.0" z=" -0.104"  mass-prop="sim/weight[2]/weight-lb"/>
+ 
+<ballast x="7.5" y="0" z="-0.7" mass="1000"/>
 
-<ballast x="7.5" y="0" z="0.0" mass="2000"/>
+<!-- hitch -->
 
+<hitch name="winch" x="2.873" y="0" z="-0.211">
+	<tow length="3100" weight-per-meter="0.04" elastic-constant="22000"  break-force="32000"/>
+	<!-- 4.5mm steel wire-->
+	<winch max-tow-length="4000" min-tow-length="300" initial-tow-length="3100" max-winch-speed="120" power="2250" max-force="39000" />
+	<control-input axis="/controls/winch/place" control="PLACEWINCH"/>
+</hitch>
 
+<hitch name="aerotow" x="6.3" y="0" z="-0.031" force-is-calculated-by-other="0">
+	<tow length="600" weight-per-meter="0.040" elastic-constant="22000" break-force="32000" mp-auto-connect-period="0.0"/>
+	<winch max-tow-length="1000" min-tow-length="60" initial-tow-length="60"/>
+	<control-input axis="/controls/aerotow/find-aircraft" control="FINDAITOW"/>
+
+</hitch>
 
 </airplane>
